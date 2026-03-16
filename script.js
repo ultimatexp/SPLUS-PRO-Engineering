@@ -157,6 +157,47 @@
     });
   }
 
+  // ============ CONTACT FORM → EMAIL ============
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const service = document.getElementById('serviceType').value;
+      const details = document.getElementById('projectDetails').value.trim();
+
+      // Service label mapping
+      const serviceLabels = {
+        electrical: 'Electrical Systems',
+        plumbing: 'Plumbing Systems',
+        aircon: 'Air Conditioning Systems',
+        all: 'Full MEP Package'
+      };
+
+      const serviceText = serviceLabels[service] || 'Not specified';
+
+      const subject = encodeURIComponent(`Quote Request from ${name} — ${serviceText}`);
+      const body = encodeURIComponent(
+        `Hello SPLUS PRO Engineering,\n\n` +
+        `I would like to request a quote for your services.\n\n` +
+        `--- Contact Details ---\n` +
+        `Name: ${name}\n` +
+        `Phone: ${phone}\n` +
+        `Email: ${email}\n\n` +
+        `--- Project Details ---\n` +
+        `Service Required: ${serviceText}\n` +
+        `Details: ${details || 'N/A'}\n\n` +
+        `Looking forward to hearing from you.\n` +
+        `Best regards,\n${name}`
+      );
+
+      window.location.href = `mailto:spluspro2018@gmail.com?subject=${subject}&body=${body}`;
+    });
+  }
+
   // ============ LIGHTBOX ============
   window.openLightbox = function (el) {
     const img = el.querySelector('img');
